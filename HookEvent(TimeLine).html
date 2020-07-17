@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <p>{{a}}</p>
+        <button v-on:click="a++">add</button>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                a: 1
+            },
+            //實例初始化立即叫用，這時還未創建實例
+            beforeCreate() {
+                console.log('Hook: beforeCreate');
+                console.log(` this.a: ${this.a}`);
+                console.log(` this.$el: ${this.$el}`);
+                console.log();
+            },
+            //完成創建實例，這時Vue實體中的配置除了el外已全部配置
+            created() {
+                console.log('Hook: created');
+                console.log(` this.a: ${this.a}`);
+                console.log(` this.$el: ${this.$el}`);
+                console.log();
+            },
+            //在Vue實體中的定義被掛載到目標元素之前叫用，這時的el會是還未被Vue實體中的定義渲染的初始設定模板
+            beforeMount() {
+                console.log('Hook: beforeMount');
+                console.log(this.$el.outerHTML);
+                console.log();
+            },
+            //Vue實體上的設置已經安裝上模板，這時的el是已經藉由實體中的定義渲染而成的真正的頁面
+            mounted() {
+                console.log('Hook: mounted');
+                console.log(this.$el.outerHTML);
+                console.log();
+            },
+            // 當實體中的 data 產生變化後或是執行 vm.$forceUpdate() 叫用，這時的頁面還未被重渲染為改變後的畫面
+            beforeUpdate() {
+                console.log('Hook: beforeUpdate');
+                console.log(` this.a: ${this.a}`);
+                console.log(` this.$el: ${this.$el}`);
+                console.log(this.$el.outerHTML);
+                console.log();
+            },
+            //在重新渲染頁面後叫用，這時的頁面已經被重渲染成改變後的畫面
+            updated() {
+                console.log('Hook: updated');
+                console.log(` this.a: ${this.a}`);
+                console.log(` this.$el: ${this.$el}`);
+                console.log(this.$el.outerHTML);
+                console.log();
+            },
+            //在此實體被銷毀前時叫用，這時實體還是擁有完整的功能
+            beforeDestroy() {
+                console.log('Hook: beforeDestroy');
+                console.log();
+            },
+            //此實體被銷毀後叫用，這時實體中的任何定義(data、methods...等)都已被解除綁定，代表在此做的任何操作都會失效
+            destroyed() {
+                console.log('Hook: destroyed');
+                console.log();
+            }
+        });
+    </script>
+</body>
+
+</html>

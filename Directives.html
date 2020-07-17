@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-text不同於{{ Mustache }} , 會完全渲染標籤 -->
+        <p v-text='msg'>測試</p>
+        <!-- {{ Mustache }}只會渲染指定位置 -->
+        <p>測試{{msg}}</p>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Text'
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <p>{{a}}</p>
+        <p>{{b}}</p>
+        <p>{{c}}</p>
+        <!-- v-once限制其只可渲染一次 -->
+        <p v-once>{{c}}</p>
+        <button v-on:click='add'>Add a</button>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                a: 1,
+                b: 0,
+                c: 0
+            }, methods: {
+                add() {
+                    //this指向整個Vue
+                    this.a++;
+                }
+            },
+            //參考HookEvent頁面
+            created() {
+                //每1000毫秒(1秒)執行一次方法
+                setInterval(() => {
+                    this.c++;
+                }, 1000);
+            }
+        });
+
+        //監看Vue區塊裡的a
+        app.$watch('a', function (newValue, oldValue) {
+            //this指向整個Vue
+            this.b = oldValue;
+        });
+    </script>
+</body>
+
+</html>

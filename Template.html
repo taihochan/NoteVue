@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <p>123</p>
+    <div id="app">
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+    </div>
+    <p>123</p>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            // template會將vue區塊內的html全部替換成template內容
+            template: '<div class="template">template1: {{a}}</div>',
+            data: {
+                a: 1
+            }
+        });
+        //可在外層更改內層data
+        app.$data.a = 10;
+    </script>
+
+</body>
+
+</html>
