@@ -11,16 +11,70 @@
 
 <body>
     <div id="app">
+        <h3>v-text</h3>
         <!-- v-text不同於{{ Mustache }} , 會完全渲染標籤 -->
         <p v-text='msg'>測試</p>
         <!-- {{ Mustache }}只會渲染指定位置 -->
         <p>測試{{msg}}</p>
+
+        <hr>
+        <h3>v-html</h3>
+        <!-- {{ Mustache }}只會以文字方式渲染 -->
+        <p>{{html}}</p>
+        <!-- v-html會以innerHTML方式插入此div區塊 -->
+        <div v-html="html"></div>
+
+        <hr>
+        <h3>v-show</h3>
+        <button v-on:click="switchShowBool">切換v-show狀態</button>
+        <!-- v-show跟v-if作用雷同 , 條件成立時顯示 , 反之隱藏 , 無法應用於<template> -->
+        <p v-show="showBool">v-show條件成立</p>
+
+        <hr>
+        <h3>v-if</h3>
+        <!-- v-if -> v-else -->
+        <h4>僅判斷if/else</h4>
+        <button v-on:click="switchIfBool">切換v-if狀態</button>
+        <p v-if="ifBool">v-if條件成立</p>
+        <p v-else>v-else條件不成立</p>
+
+        <!-- v-if -> v-else-if -> v-else -->
+        <h4>判斷多個條件if/else if/else</h4>
+        <button v-on:click="condition = 1">多重v-if條件 : 1</button>
+        <button v-on:click="condition = 2">多重v-if條件 : 2</button>
+        <button v-on:click="condition = 3">多重v-if條件 : 3</button>
+        <button v-on:click="condition = 4">多重v-if條件 : 4</button>
+        <p v-if="condition == 1">條件為1</p>
+        <p v-else-if="condition == 2">條件為2</p>
+        <p v-else-if="condition == 3">條件為3</p>
+        <p v-else>條件為其他</p>
+
+        <hr>
+        <h4>v-for</h4>
+
+
+
     </div>
     <script>
         var app = new Vue({
             el: '#app',
             data: {
-                msg: 'Text'
+                msg: 'Text',
+                html: '<p>v-html所渲染內容</p>',
+                showBool: true,
+                ifBool: true,
+                condition: 1,
+                items: {
+
+                }
+            },
+            methods: {
+                switchShowBool() {
+                    this.showBool = !this.showBool;
+                },
+                switchIfBool() {
+                    this.ifBool = !this.ifBool;
+                }
             }
         });
     </script>
