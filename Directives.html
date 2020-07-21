@@ -6,7 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
 
+        .blue {
+            color: blue;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,8 +63,38 @@
 
         <hr>
         <h4>v-for</h4>
+        <!-- of跟in都可使用 , 無差別 -->
+        <div v-for="item of ArrayItems">
+            {{item}}
+        </div>
+        <br>
+        <div v-for="item in ArrayItems">
+            {{item}}
+        </div>
+        <br>
+        <div v-for="item in ArrayItems">
+            <div v-for="obj in item">
+                {{obj}}
+            </div>
+            <br>
+        </div>
+        <div v-for="(item, index) in ArrayItems">
+            <p>index : {{index}} , item : {{item.CAT}} </p>
+        </div>
 
+        <div v-for="(item, key, index) in ObjectItems">
+            <p>key : {{key}} , index : {{index}} , item : {{item.CAT}} </p>
+        </div>
 
+        <hr>
+        <h4>v-bind</h4>
+        <p>任何原生html標籤屬性需要使用vue屬性時都需要在前方加上v-bind , ex. v-bind:class="vue組件" (可縮寫':class')</p>
+        <!-- 可直接將條件是寫在class內 -->
+        <span :class="{red: vBind === 'red', blue: vBind === 'blue', bold : true}">渲染顏色</span>
+        <br>
+        <!-- 也可將條件整理至計算內 , 版面更整齊好修改 -->
+        <span :class="vBindClass">渲染顏色</span>
+        <button @click="changeVbind">改變顏色</button>
 
     </div>
     <script>
@@ -64,8 +106,53 @@
                 showBool: true,
                 ifBool: true,
                 condition: 1,
-                items: {
+                vBind: 'red',
+                ArrayItems: [{
+                    CAT: '貓1',
+                    DOG: '狗1',
+                    BIRD: '鳥1',
+                    FISH: '魚1',
+                    CHICKEN: '雞1'
+                }, {
+                    CAT: '貓2',
+                    DOG: '狗2',
+                    BIRD: '鳥2',
+                    FISH: '魚2',
+                    CHICKEN: '雞2'
+                }, {
+                    CAT: '貓3',
+                    DOG: '狗3',
+                    BIRD: '鳥3',
+                    FISH: '魚3',
+                    CHICKEN: '雞3'
+                }
 
+                ],
+                ObjectItems: {
+                    '1': {
+                        SORT: 3,
+                        CAT: '貓1',
+                        DOG: '狗1',
+                        BIRD: '鳥1',
+                        FISH: '魚1',
+                        CHICKEN: '雞1'
+                    },
+                    '2': {
+                        SORT: 1,
+                        CAT: '貓2',
+                        DOG: '狗2',
+                        BIRD: '鳥2',
+                        FISH: '魚2',
+                        CHICKEN: '雞2'
+                    },
+                    '3': {
+                        SORT: 2,
+                        CAT: '貓3',
+                        DOG: '狗3',
+                        BIRD: '鳥3',
+                        FISH: '魚3',
+                        CHICKEN: '雞3'
+                    }
                 }
             },
             methods: {
@@ -74,6 +161,18 @@
                 },
                 switchIfBool() {
                     this.ifBool = !this.ifBool;
+                },
+                changeVbind() {
+                    this.vBind = this.vBind === 'red' ? 'blue' : 'red';
+                }
+            },
+            computed: {
+                vBindClass() {
+                    return {
+                        red: this.vBind === 'red',
+                        blue: this.vBind === 'blue',
+                        bold: true
+                    };
                 }
             }
         });

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<div id="app">
+    <!-- 可將算式直接寫入 -->
+    <span>Number {{number}} is {{number % 2 === 0 ? 'even' : 'odd'}}</span>
+    <br>
+    <!-- 也可將算式統一寫入Computed裡 , 增加可讀及維護姓 -->
+    <span>Number {{number}} is {{numberEvenOrOdd}}</span>
+    <br>
+    <span>x + y => {{x}} + {{y}} = {{XaddY}}</span>
+
+    <hr>
+    <span>Number {{number1}} is {{numberEvenOrOddSetter}}</span>
+    <button @click="numberEvenOrOddSetter='even'">Set Even</button>
+    <button @click="numberEvenOrOddSetter='odd'">Set Odd</button>
+
+    <hr>
+    <!-- 算式同樣可以寫在methods裡 , 差別在於當網頁有內容變動渲染時會跟著變動 , Computed只有在自身來源產生變動時才會渲染 -->
+    <div>
+        <div>Computed: {{datePlusNumberComputed}}</div>
+        <div>Method: {{datePlusNumberMethod()}}</div>
+    </div>
+</div>
+
+<body>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                number: 13,
+                number1: 1,
+                x: 3,
+                y: 5
+            },
+            methods: {
+                datePlusNumberMethod() {
+                    return Date.now();
+                }
+            },
+            computed: {
+                numberEvenOrOdd() {
+                    return this.number % 2 === 0 ? 'even' : 'odd';
+                },
+                numberEvenOrOddSetter: {
+                    get() {
+                        return this.number1 % 2 === 0 ? 'even' : 'odd';
+                    },
+                    set(evenOrOdd) {
+                        if (this.number1 % 2 === 0) {
+                            if (evenOrOdd !== 'even') this.number1++;
+                            return;
+                        }
+                        if (evenOrOdd !== 'odd') this.number1++;
+                    }
+
+                },
+                XaddY() {
+                    return this.x + this.y;
+                },
+                datePlusNumberComputed() {
+                    return Date.now();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
