@@ -96,6 +96,11 @@
         <span :class="vBindClass">渲染顏色</span>
         <button @click="changeVbind">改變顏色</button>
 
+        <hr>
+        <h4>v-model</h4>
+        <input type="checkbox" id="checkbox" v-model="checkModel">
+        <label for="checkbox">{{checkModel}}</label>
+
     </div>
     <script>
         var app = new Vue({
@@ -107,6 +112,7 @@
                 ifBool: true,
                 condition: 1,
                 vBind: 'red',
+                checkModel: false,
                 ArrayItems: [{
                     CAT: '貓1',
                     DOG: '狗1',
